@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
             required: true,
             minLength: 8,
             maxLength: 50,
-            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/
+            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
         }
     };
 
@@ -86,7 +86,22 @@ document.addEventListener('DOMContentLoaded', function() {
         errorElement.classList.remove('show');
     }
 
-    // Real-time validation for email
+    // Real-time validation for email (on input for better UX)
+    emailInput.addEventListener('input', function() {
+        if (this.classList.contains('error')) {
+            this.classList.remove('error');
+            emailError.classList.remove('show');
+        }
+        // Add real-time validation for better UX
+        if (this.value.length > 0) {
+            const validation = validateField('email', this.value);
+            if (validation.isValid) {
+                displaySuccess(this, emailError);
+            }
+        }
+    });
+
+    // Real-time validation for email (on blur)
     emailInput.addEventListener('blur', function() {
         const validation = validateField('email', this.value);
         if (!validation.isValid) {
@@ -96,7 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Real-time validation for password
+    // Real-time validation for password (with strength indicator)
+    passwordInput.addEventListener('input', function() {
+        if (this.classList.contains('error')) {
+            this.classList.remove('error');
+            passwordError.classList.remove('show');
+        }
+        // Show password strength in real-time
+        updatePasswordStrength(this.value);
+    });
+
+    // Real-time validation for password (on blur)
     passwordInput.addEventListener('blur', function() {
         const validation = validateField('password', this.value);
         if (!validation.isValid) {
@@ -105,6 +130,37 @@ document.addEventListener('DOMContentLoaded', function() {
             displaySuccess(this, passwordError);
         }
     });
+
+    // Password strength indicator function
+    function updatePasswordStrength(password) {
+        const strengthIndicator = document.getElementById('passwordStrength');
+        if (!strengthIndicator) return;
+
+        let strength = 0;
+        const strengthText = strengthIndicator.querySelector('.strength-text');
+        const strengthBar = strengthIndicator.querySelector('.strength-bar');
+
+        // Calculate strength
+        if (password.length >= 8) strength++;
+        if (/[a-z]/.test(password)) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/\d/.test(password)) strength++;
+        if (/[@$!%*?&]/.test(password)) strength++;
+
+        // Update strength indicator
+        const strengthLevels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+        const strengthColors = ['#e74c3c', '#e67e22', '#f39c12', '#27ae60', '#27ae60'];
+        
+        if (password.length === 0) {
+            strengthText.textContent = '';
+            strengthBar.style.width = '0%';
+            strengthBar.style.backgroundColor = '#e1e1e1';
+        } else {
+            strengthText.textContent = strengthLevels[strength - 1] || 'Very Weak';
+            strengthBar.style.width = `${(strength / 5) * 100}%`;
+            strengthBar.style.backgroundColor = strengthColors[strength - 1] || '#e74c3c';
+        }
+    }
 
     // Clear errors on input
     emailInput.addEventListener('input', function() {
