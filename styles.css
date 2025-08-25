@@ -14,8 +14,9 @@ body {
     justify-content: center;
 }
 
-/* Login container */
-.login-container {
+/* Login and Registration container */
+.login-container,
+.registration-container {
     background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
@@ -25,7 +26,12 @@ body {
     backdrop-filter: blur(10px);
 }
 
-.login-form h2 {
+.registration-container {
+    max-width: 500px;
+}
+
+.login-form h2,
+.registration-form h2 {
     text-align: center;
     color: #333;
     margin-bottom: 30px;
@@ -48,7 +54,9 @@ body {
 }
 
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="text"],
+.form-group input[type="tel"] {
     width: 100%;
     padding: 12px 15px;
     border: 2px solid #e1e1e1;
@@ -59,7 +67,9 @@ body {
 }
 
 .form-group input[type="email"]:focus,
-.form-group input[type="password"]:focus {
+.form-group input[type="password"]:focus,
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
     outline: none;
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -103,8 +113,9 @@ body {
     opacity: 1;
 }
 
-/* Login button */
-.login-btn {
+/* Login and Registration buttons */
+.login-btn,
+.register-btn {
     width: 100%;
     padding: 15px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -118,16 +129,19 @@ body {
     margin-top: 10px;
 }
 
-.login-btn:hover {
+.login-btn:hover,
+.register-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-.login-btn:active {
+.login-btn:active,
+.register-btn:active {
     transform: translateY(0);
 }
 
-.login-btn:disabled {
+.login-btn:disabled,
+.register-btn:disabled {
     background: #ccc;
     cursor: not-allowed;
     transform: none;
@@ -155,14 +169,37 @@ body {
 
 /* Responsive design */
 @media (max-width: 480px) {
-    .login-container {
+    .login-container,
+    .registration-container {
         margin: 20px;
         padding: 30px 25px;
     }
     
-    .login-form h2 {
+    .login-form h2,
+    .registration-form h2 {
         font-size: 24px;
     }
+}
+
+/* Checkbox styling for registration form */
+.form-group.checkbox {
+    display: flex;
+    align-items: flex-start;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+.form-group.checkbox label {
+    margin-left: 8px;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.terms-link {
+    color: #667eea;
+    text-decoration: underline;
 }
 
 /* Success message */

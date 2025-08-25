@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="registration-container">
+        <div class="registration-form">
+            <h2>Create an Account</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                    <span class="error-message" id="fullNameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number (optional):</label>
+                    <input type="tel" id="phone" name="phone">
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+                
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="termsAgree" name="termsAgree" required>
+                    <label for="termsAgree">I agree to the <a href="#" class="terms-link">Terms and Conditions</a></label>
+                    <span class="error-message" id="termsAgreeError"></span>
+                </div>
+                
+                <button type="submit" class="register-btn">Register</button>
+                
+                <div class="form-links">
+                    <span>Already have an account? <a href="login.html" class="login-link">Login here</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="registration.js"></script>
+</body>
+</html>
