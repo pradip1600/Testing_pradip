@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const termsAgreeError = document.getElementById('termsAgreeError');
     
     const registerBtn = document.querySelector('.register-btn');
+    
+    // Terms and Conditions Modal Elements
+    const termsModal = document.getElementById('termsModal');
+    const openTermsModalLink = document.getElementById('openTermsModal');
+    const closeButton = document.querySelector('.close-button');
+    const acceptTermsButton = document.getElementById('acceptTerms');
+    const declineTermsButton = document.getElementById('declineTerms');
 
     // Validation rules
     const validationRules = {
@@ -355,4 +362,52 @@ document.addEventListener('DOMContentLoaded', function() {
         demoBtn.addEventListener('click', window.demoRegistration);
         registrationForm.appendChild(demoBtn);
     }
+    
+    // Terms and Conditions Modal functionality
+    function openModal() {
+        termsModal.classList.add('show');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+    }
+    
+    function closeModal() {
+        termsModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+    
+    // Event listeners for modal
+    openTermsModalLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal();
+    });
+    
+    closeButton.addEventListener('click', closeModal);
+    
+    // Close modal when clicking outside of it
+    window.addEventListener('click', function(e) {
+        if (e.target === termsModal) {
+            closeModal();
+        }
+    });
+    
+    // Accept Terms button
+    acceptTermsButton.addEventListener('click', function() {
+        termsAgreeCheckbox.checked = true;
+        // Clear any previous error
+        termsAgreeError.textContent = '';
+        termsAgreeError.classList.remove('show');
+        closeModal();
+    });
+    
+    // Decline Terms button
+    declineTermsButton.addEventListener('click', function() {
+        termsAgreeCheckbox.checked = false;
+        closeModal();
+    });
+    
+    // Escape key to close modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && termsModal.classList.contains('show')) {
+            closeModal();
+        }
+    });
 });
